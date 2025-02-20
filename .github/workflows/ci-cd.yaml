@@ -1,0 +1,37 @@
+name: CI-CD workflow for Deepseek
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Choose action (apply/destroy)"
+        required: true
+        default: "apply"
+        type: choice
+        options:
+          - apply
+          - destroy
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code from the repository
+      - name: 'Checkout code'
+        uses: 'actions/checkout@v2'
+
+      # Build trust between GitHub and AWS using OIDC connector
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+           role-to-assume: ${{ secrets.AWS_IAM_ARN }}
+           role-session-name: samplesession
+           aws-region: ${{ secrets.AWS_REGION }}
