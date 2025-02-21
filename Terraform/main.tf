@@ -43,28 +43,12 @@ resource "aws_iam_instance_profile" "deepseek_profile" {
   role = module.iam.iam_role_name
 }
  
-resource "tls_private_key" "deepseek_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
- 
-resource "aws_key_pair" "deepseek_key" {
-  key_name   = "deepseek-key"
-  public_key = tls_private_key.deepseek_key.public_key_openssh
-}
- 
-output "private_key_pem" {
-  value     = tls_private_key.deepseek_key.private_key_pem
-  sensitive = true
-}
- 
-
  
 # EC2 Instance
 resource "aws_instance" "deepseek_instance" {
   ami                    = var.ami
   instance_type          = var.instance_type
-  key_name               = aws_key_pair.deepseek_key.key_name
+  key_name               = var.key_name
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [module.security_group.security_group_id]
   iam_instance_profile   = aws_iam_instance_profile.deepseek_profile.name
