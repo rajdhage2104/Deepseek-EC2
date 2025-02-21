@@ -39,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "s3_readonly" {
 }
  
 resource "aws_iam_instance_profile" "deepseek_profile" {
-  name = "deepseek-profile"
+  name = "deepseek-profile1"
   role = module.iam.iam_role_name
 }
  
