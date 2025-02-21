@@ -188,7 +188,7 @@ jobs:
         - name: Terraform Init
           run: cd Terraform && terraform init
 
-        - name: Terraform Plan
+        - name: Terraform Destroy
           run: cd Terraform && terraform destroy --auto-approve
 
 
