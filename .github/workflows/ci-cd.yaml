@@ -94,20 +94,7 @@ jobs:
           run: |
             echo "Retrieving Terraform Outputs..."
             echo "INSTANCE_PUBLIC_IP=$(terraform output -raw ec2_public_ip)" >> $GITHUB_ENV
-  
-        - name: Add GitHub Runner IP to Security Group
-          run: |
-            RUNNER_IP=$(curl -s https://checkip.amazonaws.com)
-            echo "Runner IP: $RUNNER_IP"
-            aws ec2 authorize-security-group-ingress \
-              --group-id "${{ env.SECURITY_GROUP_ID }}" \
-              --protocol tcp \
-              --port 22 \
-              --cidr "$RUNNER_IP/32" || echo "Failed to add rule to EC2 Security Group"
-
-        - name: Wait for Security Group to Update
-          run: sleep 12
-
+            
         # Create known_hosts file inside SSH directory 
         - name: Create SSH directory and known_hosts file
           run: |
