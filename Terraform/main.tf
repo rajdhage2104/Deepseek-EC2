@@ -29,7 +29,7 @@ module "security_group" {
 module "iam" {
   source     = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
   create_role = true
-  role_name  = "newrole-deepseek1"
+  role_name  = "newrole-deepseek2"
   trusted_role_services = ["ec2.amazonaws.com"]
 }
  
@@ -39,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "s3_readonly" {
 }
  
 resource "aws_iam_instance_profile" "deepseek_profile" {
-  name = "deepseek-profile1"
+  name = "deepseek-profile2"
   role = module.iam.iam_role_name
 }
  
