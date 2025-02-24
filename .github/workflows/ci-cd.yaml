@@ -90,6 +90,7 @@ jobs:
             aws-region: ${{ secrets.AWS_REGION }}
             
         - name: Retrieve Terraform Outputs
+          working-directory: Terraform
           id: tf_outputs
           run: |
             echo "Retrieving Terraform Outputs..."
