@@ -88,6 +88,10 @@ jobs:
             role-to-assume: ${{ secrets.AWS_IAM_ARN }}
             role-session-name: samplerolesession
             aws-region: ${{ secrets.AWS_REGION }}
+
+        - name: Terraform Init
+          working-directory: Terraform
+          run: terraform init
             
         - name: Retrieve Terraform Outputs
           working-directory: Terraform
