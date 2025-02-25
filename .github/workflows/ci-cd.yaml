@@ -119,14 +119,6 @@ jobs:
         - name: Install SSH Client    
           run: sudo apt-get install -y openssh-client
           
-        # Build trust between GitHub and AWS using OIDC connector
-        - name: configure aws credentials
-          uses: aws-actions/configure-aws-credentials@v3
-          with:
-            role-to-assume: ${{ secrets.AWS_IAM_ARN }}
-            role-session-name: samplerolesession
-            aws-region: ${{ secrets.AWS_REGION }}
-          
         # Deploying on EC2 which contains docker
         - name: Deploy Deepseek to EC2
           run: |
